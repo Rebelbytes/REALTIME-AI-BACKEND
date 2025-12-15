@@ -31,7 +31,7 @@ Realtime AI Backend is an async Python system using FastAPI and WebSockets for r
 
 ## Architecture 🏗️
 The system consists of a frontend client, a FastAPI WebSocket server, an LLM layer, and a Supabase database. Users send messages via WebSocket, the server streams AI responses back in real-time, logs all events asynchronously in Supabase, and triggers a post-session job to generate a session summary.
-![Realtime AI Backend Architecture](assets/architecture.jpg)
+![Realtime AI Backend Architecture](assets/Architecture.jpg)
 
 ---
 
