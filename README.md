@@ -28,74 +28,12 @@ Realtime AI Backend is an async Python system using FastAPI and WebSockets for r
 - **Frontend:** HTML + JavaScript  
 
 ---
+
+## Architecture 🏗️
+The system consists of a frontend client, a FastAPI WebSocket server, an LLM layer, and a Supabase database. Users send messages via WebSocket, the server streams AI responses back in real-time, logs all events asynchronously in Supabase, and triggers a post-session job to generate a session summary.
+![Realtime AI Backend Architecture](assets/architecture.jpg)
+
+---
+
 ## Setup & Installation 🚀
 
-1. **Clone the repository**
-```bash
-git clone <YOUR_REPO_URL>
-cd realtime-ai-backend
-Create a virtual environment
-
-bash
-Copy code
-python -m venv venv
-source venv/bin/activate   # Linux/Mac
-venv\Scripts\activate      # Windows
-Install dependencies
-
-bash
-Copy code
-pip install -r requirements.txt
-Add environment variables (.env)
-
-ini
-Copy code
-SUPABASE_URL=<YOUR_SUPABASE_URL>
-SUPABASE_KEY=<YOUR_SUPABASE_KEY>
-OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
-Run the backend server
-
-bash
-Copy code
-uvicorn backend.main:app --reload
-Open frontend
-
-Open frontend/index.html in a browser 🌐
-
-Start chatting via WebSocket 💬
-
-Database Schema (Supabase) 🗄️
-Sessions Table
-sql
-Copy code
-CREATE TABLE sessions (
-    session_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID,
-    start_time TIMESTAMP DEFAULT now(),
-    end_time TIMESTAMP,
-    summary TEXT
-);
-Event Log Table
-sql
-Copy code
-CREATE TABLE session_events (
-    event_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    session_id UUID REFERENCES sessions(session_id),
-    event_type TEXT,       -- user_message / ai_response / tool_call
-    content TEXT,
-    created_at TIMESTAMP DEFAULT now()
-);
-WebSocket Workflow 🔄
-Client connects:
-ws://localhost:8000/ws/session/{session_id}
-
-User sends messages 📨 → AI streams response ⚡ → all events saved in Supabase 💾
-
-On disconnect 🔌 → backend generates session summary 📝 → updates session record
-
-Screenshots 📸
-Chat Interface 💬
-
-AI Streaming ⚡
-
-Session Summary 📝
