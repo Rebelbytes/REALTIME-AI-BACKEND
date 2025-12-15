@@ -1,17 +1,16 @@
-
 # Realtime AI Backend (WebSockets + Supabase) 🤖💬
 
 ## Overview
-Realtime AI Backend is an asynchronous Python system using FastAPI and WebSockets for real-time AI conversations. It stores session data in Supabase and generates post-session summaries, showcasing low-latency interaction, state management, and automation in a single backend.
+Realtime AI Backend is an asynchronous Python system built with FastAPI and WebSockets to enable real-time AI conversations. It stores session data in Supabase and automatically generates post-session summaries, demonstrating low-latency communication, multi-turn conversation state management, and backend automation. This project serves as a prototype for AI chatbots, customer support assistants, or interactive tutoring systems.
 
 ---
 
 ## Features ✨
 - Real-time messaging with token-by-token AI streaming  
-- Supports complex LLM interactions (function/tool calls, multi-step workflows)  
-- Session and event logging in Supabase  
-- Post-session summary generation  
-- Simple, interactive frontend  
+- Complex LLM interactions (function/tool calls, multi-step workflows)  
+- Session and event logging in Supabase for persistence  
+- Automatic post-session summary generation  
+- Minimal, interactive frontend for testing  
 
 ---
 
@@ -19,13 +18,38 @@ Realtime AI Backend is an asynchronous Python system using FastAPI and WebSocket
 - **Backend:** Python, FastAPI  
 - **Database:** Supabase (PostgreSQL)  
 - **WebSockets:** FastAPI WebSocket API  
-- **LLM:** OpenAI API or similar  
+- **LLM Integration:** OpenAI API (or any compatible LLM)  
 - **Frontend:** HTML + JavaScript  
 
 ---
 
+## Project Structure 📂
+
+```
+
+REALTIME-AI-BACKEND/
+│
+├── realtime_ai_backend/            # Core backend application
+│   ├── assets/                     # Images, diagrams, and static files
+│   │   └── Architecture.jpg
+│   ├── backend/                    # FastAPI server files
+│   │   ├── main.py                 # Entry point for FastAPI server
+│   │   ├── websocket.py            # WebSocket connection logic
+│   │   ├── llm.py                  # LLM interaction & streaming logic
+│   │   ├── db.py                   # Supabase/Postgres connection & queries
+│   │   └── post_session.py         # Post-session processing & summary generation
+│   └── frontend/                   # Minimal frontend interface
+│       └── index.html              # HTML + JS interface for testing
+│
+├── requirements.txt                # Python dependencies
+└── README.md                       # Project documentation
+
+````
+
+---
+
 ## Architecture 🏗️
-The system consists of a frontend client, a FastAPI WebSocket server, an LLM layer, and a Supabase database. Users send messages via WebSocket, the server streams AI responses back in real-time, logs all events asynchronously in Supabase, and triggers a post-session job to generate a session summary.
+The system consists of four main components: a **frontend client**, a **FastAPI WebSocket server**, an **LLM interaction layer**, and a **Supabase database**. Users send messages through the WebSocket connection, the server streams AI responses back in real-time, all events are logged asynchronously in Supabase, and a post-session job generates a summary stored in the session record.
 
 ![Realtime AI Backend Architecture](realtime_ai_backend/assets/Architecture.jpg)
 
@@ -64,7 +88,7 @@ uvicorn backend.main:app --reload
 
 ### 5. Open frontend
 
-* Open `frontend/index.html` in a browser 🌐
+* Open `frontend/index.html` in your browser 🌐
 * Start chatting via WebSocket 💬
 
 ---
@@ -105,36 +129,15 @@ CREATE TABLE session_events (
 ws://localhost:8000/ws/session/{session_id}
 ```
 
-2. User sends messages 📨 → AI streams response ⚡ → all events saved in Supabase 💾
-
-3. On disconnect 🔌 → backend generates session summary 📝 → updates session record
+2. User sends messages 📨 → AI streams responses ⚡ → all events are saved asynchronously in Supabase 💾
+3. On disconnect 🔌 → backend triggers post-session processing 📝 → session summary is stored in database
 
 ---
 
 ## Screenshots 📸
 
-* Chat Interface 💬
-* AI Streaming ⚡
-* Session Summary 📝
-
-```
+* **Chat Interface:** Simple frontend for sending messages 💬
+* **AI Streaming:** Token-by-token AI responses ⚡
+* **Session Summary:** Automatically generated summaries 📝
 
 ---
-
-### ✅ **Next Steps to Push to GitHub**
-1. Save this content in your `README.md`.
-2. Make sure the architecture image is in:  
-```
-
-realtime_ai_backend/assets/Architecture.jpg
-
-````
-3. Run the following commands in PowerShell:
-
-```powershell
-git add README.md realtime_ai_backend/assets/Architecture.jpg
-git commit -m "Polished README with architecture diagram, setup, workflow"
-git push origin main
-````
-
-
