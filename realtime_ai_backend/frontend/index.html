@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime AI Chat</title>
+    <style>
+        :root {
+            --bg-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --user-color: #4caf50;
+            --ai-color: #2196f3;
+            --input-bg: #333;
+            --input-text: #fff;
+            --btn-bg: #555;
+            --btn-text: #fff;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        #chat-container {
+            width: 90%;
+            max-width: 600px;
+            height: 60vh;
+            background-color: #2b2b2b;
+            border-radius: 10px;
+            padding: 10px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            white-space: pre-wrap;
+        }
+
+        #chat-container div {
+            margin: 5px 0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .user {
+            background-color: var(--user-color);
+            color: #fff;
+            align-self: flex-end;
+        }
+
+        .ai {
+            background-color: var(--ai-color);
+            color: #fff;
+            align-self: flex-start;
+        }
+
+        #input-container {
+            display: flex;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        #msg {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: var(--input-bg);
+            color: var(--input-text);
+            font-size: 16px;
+        }
+
+        #send-btn {
+            padding: 10px 20px;
+            margin-left: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Realtime AI Chat</h2>
+
+    <div id="chat-container"></div>
+
+    <div id="input-container">
+        <input id="msg" placeholder="Type your message..." />
+        <button id="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const msgInput = document.getElementById('msg');
+
+        let ws = new WebSocket("ws://127.0.0.1:8000/ws/session/demo123");
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            addMessage(data.user === "ai" ? "ai" : "user", data.message);
+        };
+
+        function addMessage(type, message) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = type;
+            msgDiv.textContent = message;
+            chatContainer.appendChild(msgDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            const message = msgInput.value.trim();
+            if (!message) return;
+
+            addMessage("user", message);
+
+            ws.send(JSON.stringify({
+                user_id: "user_1",
+                message: message
+            }));
+
+            msgInput.value = "";
+            msgInput.focus();
+        }
+    </script>
+
+</body>
+
+</html>
