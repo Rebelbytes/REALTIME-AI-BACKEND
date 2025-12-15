@@ -1,33 +1,31 @@
 # Realtime AI Backend (WebSockets + Supabase) 🤖💬
 
-![Project Overview](images/project_overview.png)
-
 ## Overview
-This project implements a **real-time AI chat backend** using **FastAPI**, **WebSockets**, and **Supabase**.  
+Realtime AI Backend is an async Python system using FastAPI and WebSockets for real-time AI conversations, storing session data in Supabase and generating post-session summaries, showcasing low-latency interaction, state management, and automation in a single backend. 
 
 **Key functionalities:**  
-- Users send messages via WebSocket 📨  
-- AI responses are streamed in real-time ⚡  
-- All messages and events are saved in Supabase 💾  
-- After the session ends, an AI-generated summary 📝 is stored automatically  
+- Users send messages via WebSocket  
+- AI responses are streamed in real-time  
+- All messages and events are saved in Supabase  
+- After the session ends, an AI-generated summary is stored automatically  
 
 ---
 
 ## Features ✨
-- Real-time messaging with token-by-token AI streaming ⏳  
-- Supports complex LLM interactions (function/tool calls, multi-step workflows) 🛠️  
-- Session and event logging in Supabase 🗂️  
-- Post-session summary generation 📊  
-- Simple, interactive dark-mode frontend 🌑  
+- Real-time messaging with token-by-token AI streaming   
+- Supports complex LLM interactions (function/tool calls, multi-step workflows)  
+- Session and event logging in Supabase  
+- Post-session summary generation   
+- Simple, interactive dark-mode frontend   
 
 ---
 
 ## Tech Stack 🛠️
-- **Backend:** Python, FastAPI 🐍  
-- **Database:** Supabase (PostgreSQL) 🗄️  
-- **WebSockets:** FastAPI WebSocket API 🔌  
-- **LLM:** OpenAI API or similar 🧠  
-- **Frontend:** HTML + JavaScript 🌐  
+- **Backend:** Python, FastAPI   
+- **Database:** Supabase (PostgreSQL)   
+- **WebSockets:** FastAPI WebSocket API   
+- **LLM:** OpenAI API or similar  
+- **Frontend:** HTML + JavaScript  
 
 ---
 ## Setup & Installation 🚀
