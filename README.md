@@ -134,10 +134,3 @@ ws://localhost:8000/ws/session/{session_id}
 
 ---
 
-## Screenshots 📸
-
-* **Chat Interface:** Simple frontend for sending messages 💬
-* **AI Streaming:** Token-by-token AI responses ⚡
-* **Session Summary:** Automatically generated summaries 📝
-
----
